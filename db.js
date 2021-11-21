@@ -25,7 +25,6 @@ var approvedStore = localforage.createInstance({
   description : 'approved images'
 });
 
-// Create table 2 in databaseName
 var unApprovedStore = localforage.createInstance({
   name        : dbName,
   storeName   : 'unapproved store',
@@ -35,6 +34,7 @@ var unApprovedStore = localforage.createInstance({
 
 export const dbAddImageToApproved = async(img) => {
   try {
+    await localforage.ready()
     await approvedStore.setItem(img.id, JSON.stringify(img))
   } catch(err) {
     throw new Error(err instanceof Error ? err.message : err)
@@ -43,6 +43,7 @@ export const dbAddImageToApproved = async(img) => {
 
 export const dbAddImageToUnApproved = async(img) => {
   try {
+    await localforage.ready()
     await unApprovedStore.setItem(img.id, img)
   } catch(err) {
     throw new Error(err instanceof Error ? err.message : err)
@@ -51,6 +52,7 @@ export const dbAddImageToUnApproved = async(img) => {
 
 export const dbGetApprovedImages = async() => {
   try {
+    await localforage.ready()
     const approvedImages = await approvedStore.iterate((val, key) => {
       return {
         [key]: val
@@ -64,6 +66,7 @@ export const dbGetApprovedImages = async() => {
 
 export const dbGetUnApprovedImages = async() => {
   try {
+    await localforage.ready()
     const approvedImages = await unApprovedStore.iterate((val, key) => {
       return {
         [key]: val
@@ -77,9 +80,20 @@ export const dbGetUnApprovedImages = async() => {
 
 export const dbGetAllImages = async() => {
   try {
+    await localforage.ready()
     const approvedImages = await dbGetApprovedImages()
     const unApprovedImages = await dbGetUnApprovedImages()
     return {...approvedImages, ...unApprovedImages}
+  } catch(err) {
+    throw new Error(err instanceof Error ? err.message : err)
+  }
+}
+export const getAllImageKeys = async() => {
+  try {
+    await localforage.ready()
+    const approvedImageKeys = await approvedStore.keys()
+    const unApprovedImageKeys = await unApprovedStore.keys()
+    return [...approvedImageKeys, ...unApprovedImageKeys]
   } catch(err) {
     throw new Error(err instanceof Error ? err.message : err)
   }

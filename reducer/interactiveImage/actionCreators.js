@@ -36,21 +36,21 @@ export const approveImageError = (error) => ({
   error,
 });
 
-export const disaproveImageRequest = (imageId) => ({
+export const disapproveImageRequest = (imageId) => ({
   type: types.DISAPPROVE_IMAGE_REQUEST,
   payload: {
     imageId,
   },
 });
 
-export const disaproveImageSuccess = (image) => ({
+export const disapproveImageSuccess = (image) => ({
   type: types.DISAPPROVE_IMAGE_SUCCESS,
   payload: {
     image,
   },
 });
 
-export const disaproveImageError = (error) => ({
+export const disapproveImageError = (error) => ({
   type: types.DISAPPROVE_IMAGE_ERROR,
   error
 });

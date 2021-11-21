@@ -3,25 +3,24 @@ import * as types from './types'
 const initialState = {
   approvedImages:[],
   unApprovedImages: [],
-  fetching: false,
+  loading: false,
   error: null
 }
 
 const imageListReducer = (state = initialState, { type, payload, error }) => {
   switch (type) {
-    case types.APPROVE_UNSPLASH_IMAGE_REQUEST:
-      return {...state, fetching: true}
-    case types.APPROVE_UNSPLASH_IMAGE_SUCCESS:
-      return {
-        ...state,
-        fetching: false,
-        approvedImages: payload.approvedImages,
-        unApprovedImages: payload.unApprovedImages
-      }
-      case types.APPROVE_UNSPLASH_IMAGE_ERROR:
+    case types.ADD_TO_APPROVED_IMAGES:
+      return {...state, approvedImages: [...state.approvedImages, payload.image]}
+    case types.ADD_TO_DISAPPROVED_IMAGES:
+      return {...state, unApprovedImages: [...state.unApprovedImages, payload.image]}
+    case types.GET_IMAGES_REQUEST:
+      return {...state, loading: true}
+    case types.GET_IMAGES_SUCCESS:
+      return { ...state, approvedImages: payload.approved, unApprovedImages: payload.unApproved }
+    case types.GET_IMAGES_ERROR:
         return {
           ...state,
-          fetching: false,
+          loading: false,
           error: error instanceof Error ? error.message : error
         }
     default:
