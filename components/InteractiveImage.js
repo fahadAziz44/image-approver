@@ -14,7 +14,6 @@ const InteractiveImage = () => {
 
   useEffect(() => {
     dispatch(getRandomImage())
-    dispatch(getImageList())
   }, [dispatch])
   
   const onApprove = useCallback(
@@ -38,7 +37,7 @@ const InteractiveImage = () => {
       )}
       {!isLoading && selectedImage && selectedImage.urls && (
         <>
-          <ImageContainer className='interactive-image-container'>
+          <ImageContainer>
             <Image src={selectedImage.urls.small} alt='image' layout='fill' />
           </ImageContainer>
           <InteractiveActions onApprove={onApprove} onDisApprove={onDisApprove} />

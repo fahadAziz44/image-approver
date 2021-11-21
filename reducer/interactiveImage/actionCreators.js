@@ -54,3 +54,10 @@ export const disapproveImageError = (error) => ({
   type: types.DISAPPROVE_IMAGE_ERROR,
   error
 });
+
+export const setInterActiveImage = (image) => ({
+  type: types.SET_INTERACTIVE_IMAGE,
+  payload: {
+    image
+  }
+})

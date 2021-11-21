@@ -16,7 +16,7 @@ const imageListReducer = (state = initialState, { type, payload, error }) => {
     case types.GET_IMAGES_REQUEST:
       return {...state, loading: true}
     case types.GET_IMAGES_SUCCESS:
-      return { ...state, approvedImages: payload.approved, unApprovedImages: payload.unApproved }
+      return { ...state, loading: false, approvedImages: payload.approved, unApprovedImages: payload.unApproved }
     case types.GET_IMAGES_ERROR:
         return {
           ...state,

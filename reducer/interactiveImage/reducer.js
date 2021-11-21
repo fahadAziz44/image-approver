@@ -27,6 +27,7 @@ const imageInterActiveReducer = (state = initialState, { type, payload, error })
           error: error instanceof Error ? error.message : error
         }
     case types.GET_RANDOM_IMAGE_SUCCESS:
+    case types.SET_INTERACTIVE_IMAGE:
       return {
         ...state,
         loading: false,
