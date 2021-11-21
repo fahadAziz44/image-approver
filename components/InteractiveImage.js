@@ -6,15 +6,12 @@ import Image from 'next/image'
 import InteractiveActions from './InterActiveActions'
 import { getImageList } from '../reducer/imageList/actions'
 import { approveImage, unApproveImage, getRandomImage } from '../reducer/interactiveImage/actions'
+import { AiOutlinePlus } from 'react-icons/ai' 
 
 const InteractiveImage = () => {
   const isLoading = useSelector(selectIsInteractiveImageLoading)
   const selectedImage = useSelector(selectInteractiveImage)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getRandomImage())
-  }, [dispatch])
   
   const onApprove = useCallback(
     () => {
@@ -30,6 +27,10 @@ const InteractiveImage = () => {
     },
     [selectedImage, dispatch],
   )
+
+  const fetchRandomImage = useCallback(() => {
+    dispatch(getRandomImage())
+  }, [dispatch])
   return (
     <InteractiveImageWrapper>
       {isLoading && (
@@ -43,6 +44,11 @@ const InteractiveImage = () => {
           <InteractiveActions onApprove={onApprove} onDisApprove={onDisApprove} />
         </>
       )}
+      {!isLoading && !selectedImage && (
+        <ImageContainer>
+          <AddImageContainer onClick={fetchRandomImage}> <AiOutlinePlus size={200} color='#e3e8ef' /> </AddImageContainer>
+        </ImageContainer>
+      )}
     </InteractiveImageWrapper>
   )
 }
@@ -54,6 +60,16 @@ const ImageContainer = styled.div`
   width: 300px;
   height: 300px;
 `
+const AddImageContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #eff2f7;
+  cursor: pointer;
+`
+
 const InteractiveImageWrapper = styled.div`
   font-size: 1.5em;
   text-align: center;
