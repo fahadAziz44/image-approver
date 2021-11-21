@@ -1,30 +1,59 @@
-import { getRandomImageRequest, getRandomImageSuccess, getRandomImageError,
-  getImageListRequest, getImageListSuccess, getImageListError } from './actionCreators'
-
-// INITIALIZES CLOCK ON SERVER
-export const initialiseImages = () => async (dispatch) => {
-  dispatch(getImageListRequest())
-  try {
-    const result = await fetch('/photos/random').then((resp) => resp.json())
-    dispatch(getImageListSuccess(result.approved, result.disapproved))
-  } catch(err) {
-    dispatch(getImageListError(err))
-  }
-}
+import { dbAddImageToApproved, dbAddImageToUnApproved, getAllImageKeys } from '../../db'
+import { addToApprovedImages, addToUnApprovedImages } from '../imageList/actionCreators'
+import {
+  getRandomImageRequest, getRandomImageSuccess, getRandomImageError,
+  approveImageRequest, approveImageSuccess, approveImageError,
+  disapproveImageRequest, disapproveImageSuccess, disapproveImageError,
+} from './actionCreators'
 
 
 export const getRandomImage = () => async(dispatch) => {
   dispatch(getRandomImageRequest())
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_UNSPLASH_ADDRESS}/photos/random`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Client-ID ${process.env.NEXT_PUBLIC_ACCESS_KEY}`
+    const imagesViewed = await getAllImageKeys()
+    let imagePresent = true
+    let res = null
+    while(imagePresent) {
+      res = await fetch(`${process.env.NEXT_PUBLIC_UNSPLASH_ADDRESS}/photos/random`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Client-ID ${process.env.NEXT_PUBLIC_ACCESS_KEY}`
+        }
+      }).then((resp) => resp.json())
+      if (imagesViewed.indexOf(res.id) > -1) {
+        imagePresent = true
+      } else {
+        imagePresent = false
       }
-    }).then((resp) => resp.json())
-    console.log('response after random image fetch: ', res)
+    }
+
     dispatch(getRandomImageSuccess(res))
   } catch(err) {
     dispatch(getRandomImageError(err))
+  }
+}
+
+export const approveImage = (image) => async(dispatch) => {
+  dispatch(approveImageRequest())
+  try {
+    const res = await dbAddImageToApproved(image)
+    dispatch(approveImageSuccess(image))
+    dispatch(addToApprovedImages(image))
+    // dispatch(getRandomImage())
+  } catch(err) {
+    dispatch(approveImageError(err))
+  }
+}
+
+
+export const unApproveImage = (image) => async(dispatch) => {
+  dispatch(disapproveImageRequest())
+  try {
+    const res = await dbAddImageToUnApproved(image)
+    dispatch(disaproveImageRequest(image))
+    dispatch(addToUnApprovedImages(image))
+    // dispatch(getRandomImage())
+  } catch(err) {
+    dispatch(disapproveImageError(err))
   }
 }

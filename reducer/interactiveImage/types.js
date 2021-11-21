@@ -5,7 +5,7 @@ export const GET_RANDOM_IMAGE_ERROR = 'rs/imageInterActive/GET_RANDOM_IMAGE_ERRO
 
 export const APPROVE_IMAGE_REQUEST = 'rs/imageInterActive/APPROVE_IMAGE_REQUEST'
 export const APPROVE_IMAGE_SUCCESS = 'rs/imageInterActive/APPROVE_IMAGE_SUCCESS'
-export const APPROVE_ERROR = 'rs/imageInterActive/APPROVE_ERROR'
+export const APPROVE_IMAGE_ERROR = 'rs/imageInterActive/APPROVE_IMAGE_ERROR'
 
 export const DISAPPROVE_IMAGE_REQUEST = 'rs/imageInterActive/DISAPPROVE_IMAGE_REQUEST'
 export const DISAPPROVE_IMAGE_SUCCESS = 'rs/imageInterActive/DISAPPROVE_IMAGE_SUCCESS'
