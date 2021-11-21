@@ -5,6 +5,8 @@ import { selectIsImageListLoading, selectImageListApproved } from '../reducer/im
 import { getImageList } from '../reducer/imageList/actions'
 import Image from 'next/image'
 import { setInterActiveImage } from '../reducer/interactiveImage/actionCreators'
+import { AiOutlinePlus } from 'react-icons/ai'
+import { getRandomImage } from '../reducer/interactiveImage/actions'
 
 const ImageCarousel = () => {
   const isLoading = useSelector(selectIsImageListLoading)
@@ -18,6 +20,11 @@ const ImageCarousel = () => {
   const onImageClick = useCallback((image) => {
     dispatch(setInterActiveImage(image))
   }, [dispatch])
+
+  const fetchRandomImage = useCallback(() => {
+    dispatch(getRandomImage())
+  }, [dispatch])
+
   return (
     <ImageCarouselWrapper>
       {isLoading && (
@@ -39,6 +46,9 @@ const ImageCarousel = () => {
                 </ThumbContainer>
             ))
           }
+          <ThumbContainer onClick={fetchRandomImage}>
+            <AddImageContainer> <AiOutlinePlus size={200} color='#e3e8ef' /> </AddImageContainer>
+          </ThumbContainer>
         </ImageThumbs>
       )}
     </ImageCarouselWrapper>
@@ -66,4 +76,14 @@ const ImageThumbs = styled.div`
     padding: 10px;
     flex-wrap: nowrap;
     column-gap: 20px;
+`
+
+const AddImageContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #eff2f7;
+  cursor: pointer;
 `
