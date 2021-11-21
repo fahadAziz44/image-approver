@@ -5,7 +5,7 @@ import interactiveImageReducer from './interactiveImage/reducer'
 // COMBINED REDUCERS
 const reducers = {
   imageList: imageListReducer,
-  image: interactiveImageReducer,
+  interactiveImage: interactiveImageReducer,
 }
 
 export default combineReducers(reducers)

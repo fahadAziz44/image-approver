@@ -51,6 +51,6 @@ export const disaproveImageSuccess = (image) => ({
 });
 
 export const disaproveImageError = (error) => ({
-  type: types.DISAPPROVE_IMAGE_Error,
+  type: types.DISAPPROVE_IMAGE_ERROR,
   error
 });
