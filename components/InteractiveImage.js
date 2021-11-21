@@ -1,10 +1,9 @@
-import react, { useEffect, useCallback } from 'react'
+import react, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch} from 'react-redux'
 import { selectIsInteractiveImageLoading, selectInteractiveImage } from '../reducer/interactiveImage/selectors'
 import Image from 'next/image'
 import InteractiveActions from './InterActiveActions'
-import { getImageList } from '../reducer/imageList/actions'
 import { approveImage, unApproveImage, getRandomImage } from '../reducer/interactiveImage/actions'
 import { AiOutlinePlus } from 'react-icons/ai' 
 
@@ -71,9 +70,6 @@ const AddImageContainer = styled.div`
 `
 
 const InteractiveImageWrapper = styled.div`
-  font-size: 1.5em;
-  text-align: center;
-  color: palevioletred;
   display: flex;
   flex-direction: column;
   justify-content: center;

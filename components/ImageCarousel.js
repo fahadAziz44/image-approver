@@ -24,10 +24,10 @@ const ImageCarousel = () => {
         <h1>Loading</h1>
       )}
       {!isLoading && approvedImages && (
-        <div className='image-thumbs'>
+        <ImageThumbs>
           {
             approvedImages && approvedImages.map((image) => (
-              <div className="thumb-container" key={image.id} onClick={() => onImageClick(image)}>
+              <ThumbContainer key={image.id} onClick={() => onImageClick(image)}>
                 <Image
                   src={image.urls.small}
                   alt='image'
@@ -36,10 +36,10 @@ const ImageCarousel = () => {
                   quality={100}
                   key={image.id}
                 />
-                </div>
+                </ThumbContainer>
             ))
           }
-        </div>
+        </ImageThumbs>
       )}
     </ImageCarouselWrapper>
   )
@@ -51,19 +51,19 @@ const ImageCarouselWrapper = styled.div`
   height: 200px;
   padding: 20px 10px;
   display: flex;
-  & .image-thumbs {
+`;
+
+const ThumbContainer = styled.div`
+    position: relative;
+    min-width: 200px;
+    max-width: 250px;
+    cursor: pointer;
+`
+
+const ImageThumbs = styled.div`
     display: flex;
     overflow-x: auto;
     padding: 10px;
     flex-wrap: nowrap;
     column-gap: 20px;
-  }
-  & .thumb-container {
-    position: relative;
-    min-width: 200px;
-    cursor: pointer;
-  }
-  & .image-item {
-    width: 100px;
-  }
-`;
+`
