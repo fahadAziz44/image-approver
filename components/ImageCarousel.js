@@ -47,7 +47,7 @@ const ImageCarousel = () => {
             ))
           }
           <ThumbContainer onClick={fetchRandomImage}>
-            <AddImageContainer> <AiOutlinePlus size={200} color='#e3e8ef' /> </AddImageContainer>
+            <AddImageContainer> <AiOutlinePlus size={100} color='#e3e8ef' /> </AddImageContainer>
           </ThumbContainer>
         </ImageThumbs>
       )}
