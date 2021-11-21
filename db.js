@@ -35,7 +35,7 @@ var unApprovedStore = localforage.createInstance({
 export const dbAddImageToApproved = async(img) => {
   try {
     await localforage.ready()
-    await approvedStore.setItem(img.id, JSON.stringify(img))
+    await approvedStore.setItem(img.id, img)
   } catch(err) {
     throw new Error(err instanceof Error ? err.message : err)
   }
@@ -53,11 +53,8 @@ export const dbAddImageToUnApproved = async(img) => {
 export const dbGetApprovedImages = async() => {
   try {
     await localforage.ready()
-    const approvedImages = await approvedStore.iterate((val, key) => {
-      return {
-        [key]: val
-      }
-    })
+    const approvedImages = []
+    await approvedStore.iterate((val, key) => { approvedImages.push(val) })
     return approvedImages
   } catch(err) {
     throw new Error(err instanceof Error ? err.message : err)
@@ -67,12 +64,9 @@ export const dbGetApprovedImages = async() => {
 export const dbGetUnApprovedImages = async() => {
   try {
     await localforage.ready()
-    const approvedImages = await unApprovedStore.iterate((val, key) => {
-      return {
-        [key]: val
-      }
-    })
-    return approvedImages
+    const unApprovedImages = []
+    await unApprovedStore.iterate((val, key) => { unApprovedImages.push(val) })
+    return unApprovedImages
   } catch(err) {
     throw new Error(err instanceof Error ? err.message : err)
   }

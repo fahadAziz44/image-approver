@@ -17,7 +17,7 @@ export const getRandomImage = () => async(dispatch) => {
       res = await fetch(`${process.env.NEXT_PUBLIC_UNSPLASH_ADDRESS}/photos/random`, {
         method: 'GET',
         headers: {
-          Authorization: `Client-ID ${process.env.NEXT_PUBLIC_ACCESS_KEY}`
+          Authorization: `Client-ID ${process.env.NEXT_PUBLIC_ACCESS_KEY_2}`
         }
       }).then((resp) => resp.json())
       if (imagesViewed.indexOf(res.id) > -1) {
@@ -26,7 +26,6 @@ export const getRandomImage = () => async(dispatch) => {
         imagePresent = false
       }
     }
-
     dispatch(getRandomImageSuccess(res))
   } catch(err) {
     dispatch(getRandomImageError(err))
@@ -36,10 +35,10 @@ export const getRandomImage = () => async(dispatch) => {
 export const approveImage = (image) => async(dispatch) => {
   dispatch(approveImageRequest())
   try {
-    const res = await dbAddImageToApproved(image)
+    await dbAddImageToApproved(image)
     dispatch(approveImageSuccess(image))
     dispatch(addToApprovedImages(image))
-    // dispatch(getRandomImage())
+    dispatch(getRandomImage())
   } catch(err) {
     dispatch(approveImageError(err))
   }
@@ -49,10 +48,10 @@ export const approveImage = (image) => async(dispatch) => {
 export const unApproveImage = (image) => async(dispatch) => {
   dispatch(disapproveImageRequest())
   try {
-    const res = await dbAddImageToUnApproved(image)
-    dispatch(disaproveImageRequest(image))
+    await dbAddImageToUnApproved(image)
+    dispatch(disapproveImageSuccess(image))
     dispatch(addToUnApprovedImages(image))
-    // dispatch(getRandomImage())
+    dispatch(getRandomImage())
   } catch(err) {
     dispatch(disapproveImageError(err))
   }

@@ -10,9 +10,9 @@ const initialState = {
 const imageListReducer = (state = initialState, { type, payload, error }) => {
   switch (type) {
     case types.ADD_TO_APPROVED_IMAGES:
-      return {...state, approvedImages: [...state.approvedImages, payload.image]}
+      return {...state, approvedImages: state.approvedImages.concat(payload.image)}
     case types.ADD_TO_DISAPPROVED_IMAGES:
-      return {...state, unApprovedImages: [...state.unApprovedImages, payload.image]}
+      return {...state, unApprovedImages: state.unApprovedImages.concat(payload.image)}
     case types.GET_IMAGES_REQUEST:
       return {...state, loading: true}
     case types.GET_IMAGES_SUCCESS:
