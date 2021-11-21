@@ -1,7 +1,7 @@
-import react, { useCallback } from 'react'
+import { useCallback } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch} from 'react-redux'
-import { selectIsInteractiveImageLoading, selectInteractiveImage } from '../reducer/interactiveImage/selectors'
+import { selectIsInteractiveImageLoading, selectInteractiveImage, selectIfImagePresent } from '../reducer/interactiveImage/selectors'
 import Image from 'next/image'
 import InteractiveActions from './InterActiveActions'
 import { approveImage, unApproveImage, getRandomImage } from '../reducer/interactiveImage/actions'
@@ -10,6 +10,7 @@ import { AiOutlinePlus } from 'react-icons/ai'
 const InteractiveImage = () => {
   const isLoading = useSelector(selectIsInteractiveImageLoading)
   const selectedImage = useSelector(selectInteractiveImage)
+  const imageApproved = useSelector(selectIfImagePresent(selectedImage?.id))
   const dispatch = useDispatch()
   
   const onApprove = useCallback(
@@ -40,7 +41,9 @@ const InteractiveImage = () => {
           <ImageContainer>
             <Image src={selectedImage.urls.small} alt='image' layout='fill' />
           </ImageContainer>
-          <InteractiveActions onApprove={onApprove} onDisApprove={onDisApprove} />
+          {!imageApproved && (
+            <InteractiveActions onApprove={onApprove} onDisApprove={onDisApprove} />
+          )}
         </>
       )}
       {!isLoading && !selectedImage && (

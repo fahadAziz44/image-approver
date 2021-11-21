@@ -1,8 +1,4 @@
-import react, { useEffect } from 'react'
 import styled from 'styled-components'
-import { useSelector, useDispatch} from 'react-redux'
-import { selectIsInteractiveImageLoading, selectInteractiveImage } from '../reducer/interactiveImage/selectors'
-import Image from 'next/image'
 import PropTypes from 'prop-types';
 
 const InteractiveActions = ({ onApprove, onDisApprove }) => {
