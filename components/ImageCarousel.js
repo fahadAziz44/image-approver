@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import { useSelector, useDispatch} from 'react-redux'
-import { selectIsImageListLoading, selectImageListApproved } from '../reducer/imageList/selectors'
+import { selectIsImageListLoading, selectImageListApproved, selectApprovedImageListLength } from '../reducer/imageList/selectors'
 import { getImageList } from '../reducer/imageList/actions'
 import Image from 'next/image'
 import { setInterActiveImage } from '../reducer/interactiveImage/actionCreators'
@@ -11,6 +11,7 @@ import { ImageCarouselWrapper, ThumbContainer, ImageThumbs, AddImageContainer } 
 const ImageCarousel = () => {
   const isLoading = useSelector(selectIsImageListLoading)
   const approvedImages = useSelector(selectImageListApproved)
+  const approvedImagesLength = useSelector(selectApprovedImageListLength)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const ImageCarousel = () => {
       {!isLoading && approvedImages && (
         <>
           <div className='carousel-heading title'>
-            APPROVED IMAGES
+            APPROVED IMAGES ({approvedImagesLength})
           </div>
           <ImageThumbs>
             {
