@@ -6,6 +6,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components'
 const theme = {
   colors: {
     primary: '#5a6fe9',
+    reject: '#454545',
     grey_text: '#959595',
     border: '#e8eaef',
   },

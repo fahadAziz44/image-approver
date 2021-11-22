@@ -1,12 +1,12 @@
-import styled from 'styled-components'
 import PropTypes from 'prop-types';
-import { InteractiveButtonsWrapper } from './InterActiveActions.style'
+import { InteractiveButtonsWrapper, ActionButton } from './InterActiveActions.style'
+import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
 const InteractiveActions = ({ onApprove, onDisApprove }) => {
   return (
     <InteractiveButtonsWrapper>
       <div className='interactive-actions'>
-        <button onClick={onApprove}> Approve </button>
-        <button onClick={onDisApprove}> DisApprove </button>
+        <ActionButton onClick={onDisApprove}> <AiOutlineClose size={30} color='white' /> </ActionButton>
+        <ActionButton primary onClick={onApprove}> <AiOutlineCheck size={30} color='white' /> </ActionButton>
       </div>
     </InteractiveButtonsWrapper>
   )
