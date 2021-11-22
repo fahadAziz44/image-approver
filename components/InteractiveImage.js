@@ -6,6 +6,7 @@ import Image from 'next/image'
 import InteractiveActions from './InterActiveActions'
 import { approveImage, unApproveImage, getRandomImage } from '../reducer/interactiveImage/actions'
 import { AiOutlinePlus } from 'react-icons/ai' 
+import { ImageContainer, AddImageContainer, InteractiveImageWrapper } from './InteractiveImage.style'
 
 const InteractiveImage = () => {
   const isLoading = useSelector(selectIsInteractiveImageLoading)
@@ -56,25 +57,3 @@ const InteractiveImage = () => {
 }
 
 export default InteractiveImage
-
-const ImageContainer = styled.div`
-  position: relative;
-  width: 300px;
-  height: 300px;
-`
-const AddImageContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  background-color: #eff2f7;
-  cursor: pointer;
-`
-
-const InteractiveImageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
