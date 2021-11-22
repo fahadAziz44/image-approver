@@ -17,7 +17,7 @@ export const getRandomImage = () => async(dispatch) => {
       res = await fetch(`${process.env.NEXT_PUBLIC_UNSPLASH_ADDRESS}/photos/random`, {
         method: 'GET',
         headers: {
-          Authorization: `Client-ID ${process.env.NEXT_PUBLIC_ACCESS_KEY_2}`
+          Authorization: `Client-ID ${process.env.NEXT_PUBLIC_ACCESS_KEY}`
         }
       }).then((resp) => resp.json())
       if (imagesViewed.indexOf(res.id) > -1) {
