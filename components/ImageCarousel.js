@@ -31,25 +31,30 @@ const ImageCarousel = () => {
         <h1>Loading</h1>
       )}
       {!isLoading && approvedImages && (
-        <ImageThumbs>
-          {
-            approvedImages && approvedImages.map((image) => (
-              <ThumbContainer key={image.id} onClick={() => onImageClick(image)}>
-                <Image
-                  src={image.urls.small}
-                  alt='image'
-                  layout='fill'
-                  objectFit="cover"
-                  quality={100}
-                  key={image.id}
-                />
-                </ThumbContainer>
-            ))
-          }
-          <ThumbContainer onClick={fetchRandomImage}>
-            <AddImageContainer> <AiOutlinePlus size={100} color='#e3e8ef' /> </AddImageContainer>
-          </ThumbContainer>
-        </ImageThumbs>
+        <>
+          <div className='carousel-heading title'>
+            APPROVED IMAGES
+          </div>
+          <ImageThumbs>
+            {
+              approvedImages && approvedImages.map((image) => (
+                <ThumbContainer key={image.id} onClick={() => onImageClick(image)}>
+                  <Image
+                    src={image.urls.small}
+                    alt='image'
+                    layout='fill'
+                    objectFit="cover"
+                    quality={100}
+                    key={image.id}
+                  />
+                  </ThumbContainer>
+              ))
+            }
+            <ThumbContainer onClick={fetchRandomImage}>
+              <AddImageContainer> <AiOutlinePlus size={100} color='#e3e8ef' /> </AddImageContainer>
+            </ThumbContainer>
+          </ImageThumbs>
+        </>
       )}
     </ImageCarouselWrapper>
   )
